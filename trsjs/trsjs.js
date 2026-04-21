@@ -12,12 +12,21 @@ function start() {
 
   trsEmu.screen('scrn').button('btn').perf('graph').focus();
   
+  $('#scrn').on( 'click', function() {
+    trsEmu.focus();
+  });
+
+  $('#console').on( 'click', function() {
+    trsEmu.blur();
+  });
+
   log( 'xterm loading ...' );
 
-  let term = new Terminal();
-  term.open( document.getElementById( 'console' ) );
-  term.write( 'Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ' );
+  //let term = new Terminal();
+  //term.open( document.getElementById( 'console' ) );
   
+  ioStart( 'console' );
+
   log( 'end of start ...' );
 
 }
