@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="trsemu-1.6.js"></script> 
+<head>
+<body
+onload="trsEmu.screen('scrn').button('btn').perf('graph').focus();"> 
+<div id="scrn">
+<canvas width="512" height="408" style="background:black">
+</canvas></div><br>
+<div id="graph">
+<canvas width="512" height="100" style="background:black">
+</canvas></div><br>
+<input type="button"id="btn" value="Run"
+  onClick="trsEmu.run('toggle');">
+<input type="button" value="Reset"
+  onClick="trsEmu.run('reset');">
+<body>
+<html>
