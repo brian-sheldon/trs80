@@ -2,7 +2,9 @@
 
 Currently, just holds a copy of the https://trsjs.48k.ca/ with my modifications
 
+This is the live demo of the code.  This page is actually multiple projects, the yet to be added to trs-80 emulator, an xterm for a cli to a monitor and a partially made software generated Altair 8800 Panel with random active leds.
 
+https://brian-sheldon.github.io/trs80/
 
 
 
