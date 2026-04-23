@@ -181,12 +181,15 @@ class Altair {
   hlines() {
     let xoffset = 11 * this.ratio;
     let yoffset = 3 * this.ratio;
-    let yoffset2 = 6 * this.ratio;
+    let yoffset2 = 7 * this.ratio;
     let x0, x1, x2, x3, y0, y1, x, y;
     x0 = this.leds['memr'].xabs - xoffset;
     x1 = this.leds['int'].xabs + xoffset;
     y = this.leds['memr'].yabs + yoffset;
     this.line( x0, y, x1, y, 1, 'white' );
+    x = this.leds['out'].xabs + this.hgap / 2 * this.ratio;
+    y = this.leds['memr'].yabs + 15 * this.ratio;
+    this.text( 'status', x, y, this.textColor );
     //
     x0 = this.leds['15'].xabs - xoffset;
     x1 = this.leds['15'].xabs - 17 * this.ratio;
@@ -196,7 +199,7 @@ class Altair {
     y1 = this.leds['15'].yabs - 18 * this.ratio;
     this.line( x0, y0, x1, y1, 1, 'white' );
     this.line( x1, y1, x2, y1, 1, 'white' );
-    this.text( 'sense sw', x3, y1, this.textColor );
+    this.text( 'sense sw.', x3, y1, this.textColor );
     x1 = this.leds['8'].xabs + this.hgap * 0.5;
     y = y0;
     this.line( x0, y, x1, y, 1, 'white' );
@@ -217,6 +220,13 @@ class Altair {
     x0 = this.leds['2'].xabs - xoffset;
     x1 = this.leds['0'].xabs + xoffset;
     this.line( x0, y, x1, y, 1, 'white' );
+    x0 = this.leds['0'].xabs + 13 * this.ratio;
+    y0 = this.leds['0'].yabs + yoffset - 3 * this.ratio;
+    y1 = y;
+    this.line( x0, y0, x1, y1, 1, 'white' );
+    x1 = this.leds['0'].xabs + 52 * this.ratio;
+    y1 = y0;
+    this.line( x0, y0, x1, y1, 1, 'white' );
     //
     x0 = this.leds['15'].xabs - xoffset;
     x1 = this.leds['15'].xabs + xoffset;
@@ -235,17 +245,29 @@ class Altair {
     x1 = this.leds['3'].xabs + xoffset;
     this.line( x0, y, x1, y, 1, 'white' );
     x0 = this.leds['2'].xabs - xoffset;
-    x1 = this.leds['0'].xabs + xoffset;
+    x1 = this.leds['0'].xabs + xoffset + 2 * this.ratio;
     this.line( x0, y, x1, y, 1, 'white' );
+    x0 = this.leds['0'].xabs + 15 * this.ratio;
+    y0 = this.leds['0'].yabs + yoffset2 - 3 * this.ratio;
+    y1 = y;
+    this.line( x0, y0, x1, y1, 1, 'white' );
+    x1 = this.leds['0'].xabs + 52 * this.ratio;
+    y1 = y0;
+    this.line( x0, y0, x1, y1, 1, 'white' );
+    x = this.leds['0'].xabs + 20 * this.ratio;
+    y = this.leds['0'].yabs - 5 * this.ratio;
+    this.text( 'Data', x, y, this.textColor, 'left' );
+    y = this.leds['0'].yabs + 15 * this.ratio;
+    this.text( 'Address', x, y, this.textColor, 'left' );
   }
   clear( color ) {
     this.ctx.fillStyle = color;
     this.ctx.fillRect( 0, 0, this.width, this.height );
   }
-  text( txt, x, y, color ) {
+  text( txt, x, y, color, align = 'center' ) {
     this.ctx.font = this.font;
     this.ctx.fillStyle = color;
-    this.ctx.textAlign = 'center';
+    this.ctx.textAlign = align;
     this.ctx.fillText( txt, x, y );
   }
   line( x0, y0, x1, y1, width, color ) {
