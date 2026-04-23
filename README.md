@@ -14,6 +14,7 @@ Currently, just holds a copy of the https://trsjs.48k.ca/ with my modifications
 - https://www.my-trs-80.com/ide/ - online TRS-80 asm ide
 - https://www.teamten.com/lawrence/projects/forth-interpreter/
 - https://www.my-trs-80.com/#!runFile=xHNZeLu3X6tLVA4FoEX3
+- https://www.youtube.com/watch?v=UmPeaTayUtc&t=11s
 
 - https://www.trs-80.com/ - lots of info
 
@@ -25,5 +26,13 @@ Currently, just holds a copy of the https://trsjs.48k.ca/ with my modifications
 ## cp/m links
 
 - https://github.com/udo-munk/z80pack
+
+## sbc design links
+
+- https://www.youtube.com/watch?v=M6H_8zzM6Rc - 555 one shot pulse that actually works
+- https://retrocomputing.stackexchange.com/questions/12194/how-did-the-altair-8800-front-panel-load-the-program-counter
+- https://www.youtube.com/watch?v=5NEpYXoAcFw
+- https://www.youtube.com/watch?v=oekucjDcNbA&list=PL3by7evD3F51Cf9QnsAEdgSQ4cz7HQZX5&index=1
+- https://www.youtube.com/watch?v=7F0tFx22_Vw
 
 

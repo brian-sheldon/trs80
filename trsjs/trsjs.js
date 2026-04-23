@@ -27,6 +27,8 @@ function start() {
   
   ioStart( 'console' );
 
+  let altair = new Altair( 'altair' );
+
   log( 'end of start ...' );
 
 }

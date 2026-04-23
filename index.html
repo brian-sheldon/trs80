@@ -7,6 +7,7 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.js"></script>
     <script type="text/javascript" src="trsjs/trsemu-1.6.js"></script>
+    <script type="text/javascript" src="trsjs/altair.js"></script>
     <script type="text/javascript" src="trsjs/cli.js"></script>
     <script type="text/javascript" src="trsjs/trsjs.js"></script>
   <head>
@@ -23,6 +24,9 @@
     <input type="button" value="log" onClick="$('#log').toggle()">
     <div id="console"></div>
     <div id="log"></div>
+    <div id="altair">
+      <canvas width="800" height="350"></canvas>
+    </div>
     <div>
       <p>This site is a modified version of the following site.  It is currently intended for my own experimentation and may not always be in a fully working state.</p>
       <a href="http://trsjs.48k.ca">TRS-80 Model III Emulator in Javascript</a>
