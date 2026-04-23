@@ -179,19 +179,35 @@ class Altair {
     this.line( x, y + beg + inc * 2, x, y + beg + inc * 2 + len, width, color );
   }
   hlines() {
-    let xoffset = 12 * this.ratio;
+    let xoffset = 11 * this.ratio;
     let yoffset = 3 * this.ratio;
     let yoffset2 = 6 * this.ratio;
-    let x0, x1, y;
+    let x0, x1, x2, x3, y0, y1, x, y;
     x0 = this.leds['memr'].xabs - xoffset;
     x1 = this.leds['int'].xabs + xoffset;
     y = this.leds['memr'].yabs + yoffset;
     this.line( x0, y, x1, y, 1, 'white' );
     //
     x0 = this.leds['15'].xabs - xoffset;
-    x1 = this.leds['8'].xabs + xoffset;
-    y = this.leds['15'].yabs + yoffset;
+    x1 = this.leds['15'].xabs - 17 * this.ratio;
+    x2 = this.leds['15'].xabs - 23 * this.ratio;
+    x3 = this.leds['15'].xabs - 45 * this.ratio;
+    y0 = this.leds['15'].yabs + yoffset;
+    y1 = this.leds['15'].yabs - 18 * this.ratio;
+    this.line( x0, y0, x1, y1, 1, 'white' );
+    this.line( x1, y1, x2, y1, 1, 'white' );
+    this.text( 'sense sw', x3, y1, this.textColor );
+    x1 = this.leds['8'].xabs + this.hgap * 0.5;
+    y = y0;
     this.line( x0, y, x1, y, 1, 'white' );
+    x = this.leds[14].xabs + this.hgap * 0.5;
+    y0 = y;
+    y1 = y - 10 * this.ratio;
+    this.line( x, y0, x, y1, 1, 'white' );
+    x = this.leds[11].xabs + this.hgap * 0.5;
+    this.line( x, y0, x, y1, 1, 'white' );
+    x = this.leds[8].xabs + this.hgap * 0.5;
+    this.line( x, y0, x, y1, 1, 'white' );
     x0 = this.leds['7'].xabs - xoffset;
     x1 = this.leds['6'].xabs + xoffset;
     this.line( x0, y, x1, y, 1, 'white' );
