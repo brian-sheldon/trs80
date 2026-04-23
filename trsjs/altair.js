@@ -156,8 +156,13 @@ class Altair {
     this.hcenter = 22.5;
     this.right = 3;
     this.hgap =  this.width / ( this.left + this.hcenter + this.right );
+    log( 'hgap: ' + this.hgap );
     this.leftMargin =  this.left * this.hgap;
     this.ratio = this.hgap / 28.07017543859649;
+    // special horizontal
+    this.xoffset = 11 * this.ratio;
+    this.yoffset = 12 * this.ratio;
+    this.yoffset2 = 16 * this.ratio;
     // vertical
     this.top = 1;
     this.vcenter = 0;
@@ -218,19 +223,44 @@ class Altair {
     this.line( x, y + beg + inc,     x, y + beg + inc + len,     width, color );
     this.line( x, y + beg + inc * 2, x, y + beg + inc * 2 + len, width, color );
   }
+  underline( label0, label1, line = 0, leftext = 0, rightext = 0 ) {
+    let xoffset = this.xoffset;
+    let yoffset = this.yoffset;
+    if ( line == 1 ) {
+      yoffset = this.yoffset2;
+    }
+    let x0, x1, x2, x3, y0, y1, x, y;
+    let led0 = this.leds[label0];
+    let led1 = this.leds[label1];
+    x0 = led0.xabs - xoffset - leftext * this.ratio;
+    x1 = led1.xabs + xoffset + rightext * this.ratio;
+    y = led0.yabs + yoffset;
+    this.line( x0, y, x1, y, 1, 'white' );
+  }
   hlines() {
     let xoffset = 11 * this.ratio;
     let yoffset = 12 * this.ratio;
     let yoffset2 = 16 * this.ratio;
     let x0, x1, x2, x3, y0, y1, x, y;
-    x0 = this.leds['memr'].xabs - xoffset;
-    x1 = this.leds['int'].xabs + xoffset;
-    y = this.leds['memr'].yabs + yoffset;
-    this.line( x0, y, x1, y, 1, 'white' );
+    // line under memr - int and label status
+    this.underline( 'memr', 'int' );
     x = this.leds['out'].xabs + this.hgap / 2 * this.ratio;
     y = this.leds['memr'].yabs + yoffset + 12 * this.ratio;
     this.text( 'status', x, y, this.textColor );
     //
+    let roffset = this.hgap * 0.5 - this.xoffset;
+    log( roffset );
+    this.underline( '15', '8', 0, 0, roffset ); // need to figure what to use for rightext
+    this.underline( '7', '6' );
+    this.underline( '5', '3' );
+    this.underline( '2', '0', 0 );
+    this.underline( '15', '15', 1 );
+    this.underline( '14', '12', 1 );
+    this.underline( '11', '9', 1 );
+    this.underline( '8', '6', 1 );
+    this.underline( '5', '3', 1 );
+    this.underline( '2', '0', 1, 0, 2 );
+    // label, diagonal line and horizontal end left of switch 15
     x0 = this.leds['15'].xabs - xoffset;
     x1 = this.leds['15'].xabs - 17 * this.ratio;
     x2 = this.leds['15'].xabs - 23 * this.ratio;
@@ -240,60 +270,35 @@ class Altair {
     this.line( x0, y0, x1, y1, 1, 'white' );
     this.line( x1, y1, x2, y1, 1, 'white' );
     this.text( 'sense sw.', x3, y1, this.textColor );
-    x1 = this.leds['8'].xabs + this.hgap * 0.5;
-    y = y0;
-    this.line( x0, y, x1, y, 1, 'white' );
+    // extrended line under switch 15 - 8, requires x0 above
+    y0 = this.leds['15'].yabs + yoffset;
+    y1 = y0 - 10 * this.ratio;
     x = this.leds[14].xabs + this.hgap * 0.5;
-    y0 = y;
-    y1 = y - 10 * this.ratio;
     this.line( x, y0, x, y1, 1, 'white' );
     x = this.leds[11].xabs + this.hgap * 0.5;
     this.line( x, y0, x, y1, 1, 'white' );
     x = this.leds[8].xabs + this.hgap * 0.5;
     this.line( x, y0, x, y1, 1, 'white' );
-    x0 = this.leds['7'].xabs - xoffset;
-    x1 = this.leds['6'].xabs + xoffset;
-    this.line( x0, y, x1, y, 1, 'white' );
-    x0 = this.leds['5'].xabs - xoffset;
-    x1 = this.leds['3'].xabs + xoffset;
-    this.line( x0, y, x1, y, 1, 'white' );
-    x0 = this.leds['2'].xabs - xoffset;
+    // top diagonal line, horizontal line right of switch 0
     x1 = this.leds['0'].xabs + xoffset;
-    this.line( x0, y, x1, y, 1, 'white' );
     x0 = this.leds['0'].xabs + 13 * this.ratio;
+    y = y0;
     y0 = this.leds['0'].yabs + yoffset - 3 * this.ratio;
     y1 = y;
     this.line( x0, y0, x1, y1, 1, 'white' );
     x1 = this.leds['0'].xabs + 52 * this.ratio;
     y1 = y0;
     this.line( x0, y0, x1, y1, 1, 'white' );
-    //
-    x0 = this.leds['15'].xabs - xoffset;
-    x1 = this.leds['15'].xabs + xoffset;
-    y = this.leds['15'].yabs + yoffset2;
-    this.line( x0, y, x1, y, 1, 'white' );
-    x0 = this.leds['14'].xabs - xoffset;
-    x1 = this.leds['12'].xabs + xoffset;
-    this.line( x0, y, x1, y, 1, 'white' );
-    x0 = this.leds['11'].xabs - xoffset;
-    x1 = this.leds['9'].xabs + xoffset;
-    this.line( x0, y, x1, y, 1, 'white' );
-    x0 = this.leds['8'].xabs - xoffset;
-    x1 = this.leds['6'].xabs + xoffset;
-    this.line( x0, y, x1, y, 1, 'white' );
-    x0 = this.leds['5'].xabs - xoffset;
-    x1 = this.leds['3'].xabs + xoffset;
-    this.line( x0, y, x1, y, 1, 'white' );
-    x0 = this.leds['2'].xabs - xoffset;
+    // bottom diagonal line and horizontal line right of switch 0
     x1 = this.leds['0'].xabs + xoffset + 2 * this.ratio;
-    this.line( x0, y, x1, y, 1, 'white' );
     x0 = this.leds['0'].xabs + 15 * this.ratio;
     y0 = this.leds['0'].yabs + yoffset2 - 3 * this.ratio;
-    y1 = y;
+    y1 = this.leds['0'].yabs + yoffset2;
     this.line( x0, y0, x1, y1, 1, 'white' );
     x1 = this.leds['0'].xabs + 52 * this.ratio;
     y1 = y0;
     this.line( x0, y0, x1, y1, 1, 'white' );
+    // labels right of switch 0
     x = this.leds['0'].xabs + 20 * this.ratio;
     y = this.leds['0'].yabs + yoffset - 8 * this.ratio;
     this.text( 'Data', x, y, this.textColor, 'left' );
