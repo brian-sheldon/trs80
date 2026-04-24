@@ -11,6 +11,8 @@ class Altair {
     this.panelWidth = 19.5;
     this.config();
     this.initPanel();
+    //this.grid();
+    this.activate();
     this.test();
     log( 'Altair constructor ends ...' );
   }
@@ -23,6 +25,53 @@ class Altair {
         self.toggle( label );
       }
     }, 200 );
+  }
+  grid() {
+    let xinc = this.hgap;
+    let yinc = this.vgap;
+    for ( let x = 0; x < this.width; x += xinc ) {
+      this.line( x, 0, x, this.height - 1, 2, 'blue' );
+    }
+    for ( let y = 0; y < this.height; y += yinc ) {
+      this.line( 0, y, this.width - 1, y, 2, 'blue' );
+    }
+  }
+  activate() {
+    let self = this;
+    let yrange = this.vgap * 0.2;
+    log( yrange );
+    log( this.topMargin );
+    log( this.vgap );
+    this.y0c = this.leds['15'].yabs;
+    this.y1c = this.leds['off'].yabs;
+    log( this.y0c );
+    this.y0u = this.y0c - yrange;
+    this.y0d = this.y0c + yrange;
+    this.y1u = this.y1c - yrange;
+    this.y1d = this.y1c + yrange;
+    $('#altair > canvas').on( 'click', function( e ) {
+      let offset = $(this).offset();
+      let x = e.pageX - offset.left;
+      let y = e.pageY - offset.top;
+      let row = -1, dir;
+      if ( y >= self.y0u && y <= self.y0d ) {
+        row = 0;
+        dir = 1;
+        if ( y < self.y0c ) {
+          dir = 0;
+        }
+      }
+      if ( y >= self.y1u && y <= self.y1d ) {
+        row = 1;
+        dir = 1;
+        if ( y < self.y1c ) {
+          dir = 0;
+        }
+      }
+      if ( row != -1 ) {
+        log( 'click row: ' + row + ' dir: ' + dir );
+      }
+    });
   }
   toggle( label ) {
     let on = ! this.leds[label].on;
@@ -110,7 +159,7 @@ class Altair {
         1,
         'aux',
         1,
-        'aux'
+        'aux2'
       ]
     ];
     let x = 0;
@@ -123,28 +172,37 @@ class Altair {
         //log( x );
         let label = row[c];
         if ( typeof( label ) == 'string' ) {
-          if ( r < 2 ) {
-            this.ledsIndex.push( label );
+          let t1, t2, b1, b2;
+          [ t1, t2, b1, b2 ] = this.split( label );
+          label = t2;
+          if ( label == 'aux2' ) {
+            label = 'aux';
           }
-          this.leds[label] = {};
-          this.leds[label].row = r;
-          this.leds[label].col = c;
-          this.leds[label].x = x;
-          this.leds[label].y = y;
-          this.leds[label].xabs = this.leftMargin + x * this.hgap;
-          this.leds[label].yabs = this.topMargin + y * this.vgap;
-          this.leds[label].on = false;
           if ( r < 2 ) {
-            this.ledInit( label, this.ledRadius, '#800000' );
+            this.ledsIndex.push( t2 );
+          }
+          this.leds[t2] = {};
+          this.leds[t2].t1 = t1;
+          this.leds[t2].t2 = label;
+          this.leds[t2].b1 = b1;
+          this.leds[t2].b2 = b2;
+          this.leds[t2].row = r;
+          this.leds[t2].col = c;
+          this.leds[t2].x = x;
+          this.leds[t2].y = y;
+          this.leds[t2].xabs = this.leftMargin + x * this.hgap;
+          this.leds[t2].yabs = this.topMargin + y * this.vgap;
+          this.leds[t2].on = false;
+          if ( r < 2 ) {
+            this.ledInit( t2, this.ledRadius, '#800000' );
           } else {
-            this.ledInit( label, this.switchRadius, '#888888' );
+            this.ledInit( t2, this.switchRadius, '#888888' );
           }
           x = x + 1;
         } else {
           x = x + label;
         }
       }
-      //log( x );
       x = 0;
       y = y + 1;
     }
@@ -309,13 +367,13 @@ class Altair {
     this.ctx.fillStyle = color;
     this.ctx.fillRect( 0, 0, this.width, this.height );
   }
-  label( txt, x, y ) {
+  split( label ) {
     let t = '', b = '';
     let t1 = '', t2 = '', b1 = '', b2 = '';
-    if ( txt.includes( ',' ) ) {
-      [ t, b ] = txt.split( ',' );
+    if ( label.includes( ',' ) ) {
+      [ t, b ] = label.split( ',' );
     } else {
-      t = txt;
+      t = label;
     }
     if ( t.includes( ' ' ) ) {
       [ t1, t2 ] = t.split( ' ' );
@@ -327,10 +385,14 @@ class Altair {
     } else {
       b1 = b;
     }
-    if ( t1 != '' ) this.text( t1, x, y - 10 * this.ratio );
-    if ( t2 != '' ) this.text( t2, x, y );
-    if ( b1 != '' ) this.text( b1, x, y + 28 * this.ratio );
-    if ( b2 != '' ) this.text( b2, x, y + 38 * this.ratio );
+    return [ t1, t2, b1, b2 ];
+  }
+  label( label, x, y ) {
+    let led = this.leds[label];
+    if ( led.t1 != '' ) this.text( led.t1, x, y - 10 * this.ratio );
+    if ( led.t2 != '' ) this.text( led.t2, x, y );
+    if ( led.b1 != '' ) this.text( led.b1, x, y + 28 * this.ratio );
+    if ( led.b2 != '' ) this.text( led.b2, x, y + 38 * this.ratio );
   }
   text( txt, x, y, color = this.textColor, align = 'center' ) {
     this.ctx.font = this.font;
