@@ -1,6 +1,6 @@
 # Various TRS-80 and Z80 stuff
 
-Currently, just holds a copy of the https://trsjs.48k.ca/ with any future modifications I make.
+Currently, just holds a copy of the https://trsjs.48k.ca/ with any future modifications I make.  I haven't been doing much on this particular project as I have been focused on my M5Cardputer CP/M Emu System.  I did convert the disassembler from Javascript to C to use in the CP/M project.
 
 I have started to figure out the structure of some of the TRS-80 Disk Image formats.  I currently have a small utility that reads through the entire disk image and checks the crcs.  This is primarily meant to test my understanding of image file.  The utility is "trs-js/bin/trs.dsk.js".  It is written in nodeJS and can be used as follows.
 
