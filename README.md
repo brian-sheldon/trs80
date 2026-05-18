@@ -1,6 +1,14 @@
 # Various TRS-80 and Z80 stuff
 
-Currently, just holds a copy of the https://trsjs.48k.ca/ with my modifications
+Currently, just holds a copy of the https://trsjs.48k.ca/ with any future modifications I make.
+
+I have started to figure out the structure of some of the TRS-80 Disk Image formats.  I currently have a small utility that reads through the entire disk image and checks the crcs.  This is primarily meant to test my understanding of image file.  The utility is "trs-js/bin/trs.dsk.js".  It is written in nodeJS and can be used as follows.
+
+```
+node trs.dsk [imagepath]               ; just displays the number of trks, trksize and final result of crc checks
+node trs.dsk [imagepath] log           ; display one line of info for each sector block
+node trs.dsk [imagepath] nolog 17 3    ; shows a single sector
+```
 
 This is the live demo of the code.  This page is actually multiple projects, the yet to be added to trs-80 emulator, an xterm for a cli to a monitor and a partially made software generated Altair 8800 Panel with random active leds.
 
