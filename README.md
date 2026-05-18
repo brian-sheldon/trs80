@@ -20,6 +20,8 @@ https://brian-sheldon.github.io/trs80/
 
 - https://trsjs.48k.ca/ - online emulator of the TRS-80 Model III
 
+- https://retrocomputing.stackexchange.com/questions/15282/understanding-the-dmk-disk-image-file-format-used-by-trs-80-emulators
+
 - https://github.com/lkesteloot/trs80
 - https://www.my-trs-80.com/ide/ - online TRS-80 asm ide
 - https://www.teamten.com/lawrence/projects/forth-interpreter/
