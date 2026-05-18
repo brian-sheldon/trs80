@@ -107,6 +107,9 @@ let data = fs.readFileSync( path );
 
 let low, high;
 let trks, trksize;
+let trk_start;
+let idam_index, idams;
+let idam_errors = 0;
 
 let pos = 0;
 
@@ -143,7 +146,19 @@ function readcrc() {
   return crc;
 }
 
+function getIdams() {
+  idam_index = 0;
+  idams = [];
+  for ( let i = 0; i < 128; i += 2 ) {
+    low = data[ pos + i ];
+    high = data[ pos + i + 1 ] & 0x7f;
+    idams.push( high << 8 | low );
+  }
+}
+
+
 function trkhead() {
+  trk_start = pos;
   skip( 0x4e );
   skip( 0x00 );
   skip( 0xc2 );
@@ -156,12 +171,18 @@ function trkhead() {
 //
 
 function sector() {
+  let addr = pos;
   skip( 0xff );
   skip( 0x4e );
   skip( 0x00 );
   crc = 0xffff;
   skip( 0xa1 );
-  skip( 0xfe );
+  let idam_rd = pos;
+  if ( hex4( idam_rd - trk_start + 128 ) != hex4( idams[idam_index++] ) ) {
+    idam_errors++;
+    console.log( "IDAM does not match position of 0xfe ..." );
+  }
+  skip( 0xfe ); // check if idam
   let trk_rd = next();
   let side_rd = next();
   let sec_rd = next();
@@ -187,9 +208,10 @@ function sector() {
     ok = true;
     crcs_ok = "... ok";
   }
-  if ( log ) console.log( "trk: " + dec0( trk_rd, 2 ) + " side: " + side_rd + " sec: " + dec0( sec_rd, 2 ) + " secsize: " + dec0( secsize_rd, 3 ) + " crcs: " + hex4( crc_info ) + ":" + hex4( crc_info_read ) + " " + hex4( crc_sec ) + ":" + hex4( crc_sec_read ) + " " + crcs_ok );
+  let info = hex6( addr ) + "  trk:" + dec0( trk_rd, 2 ) + " side:" + side_rd + " sec:" + dec0( sec_rd, 2 ) + " len:" + dec0( secsize_rd, 3 ) + " crcs: " + hex4( crc_info ) + ":" + hex4( crc_info_read ) + " " + hex4( crc_sec ) + ":" + hex4( crc_sec_read ) + " " + crcs_ok;
+  if ( log ) console.log( info );
   if ( trk == trk_rd && sec == sec_rd ) {
-    console.log( "trk: " + dec0( trk_rd, 2 ) + " side: " + side_rd + " sec: " + dec0( sec_rd, 2 ) + " secsize: " + dec0( secsize_rd, 3 ) + " crcs: " + hex4( crc_info ) + ":" + hex4( crc_info_read ) + " " + hex4( crc_sec ) + ":" + hex4( crc_sec_read ) + " " + crcs_ok );
+    console.log( info );
     console.log( hexlines( data, sec_addr, 16, 16 ) );
   }
   return ok;
@@ -212,6 +234,7 @@ function disk_scan() {
   for ( let t = 0; t < trks; t++ ) {
     pos = 16 + t * trksize;
     if ( log ) console.log( "======================  trk: " + dec0( t, 2 ) + " pos: " + hex8( pos ) + "  ======================" );
+    getIdams();
     pos += 128;
     trkhead();
     for ( let s = 0; s < 18; s++ ) {
@@ -221,11 +244,16 @@ function disk_scan() {
       }
     }
   }
-  console.log( "Bad sectors: " + bad_sectors );
+  console.log( "IDAM errors: " + idam_errors + "  Bad sectors: " + bad_sectors );
 }
 
 disk_head();
 disk_scan();
 
+//
+// hexdump of IDAM poiners
+//
+//console.log();
+//console.log( hexlines( data, 16, 3, 16 ) );
 
 
