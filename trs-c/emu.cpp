@@ -6,7 +6,8 @@
 
 #include <string.h>
 
-//#include "io.h"
+//#include "memory.h"
+//#include "z80.dis.h"
 #include "cli.h"
 
 /* 64K memory for testing. */
@@ -161,7 +162,7 @@ void loop() {
     ioLoop();
     loopCpu();
     if ( ( loopCount++ % 1000 ) == 0 ) {
-      cpuStatus();
+      //cpuStatus();
     }
   }
 }

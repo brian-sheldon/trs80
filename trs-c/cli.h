@@ -10,6 +10,7 @@
 #include "io.h"
 
 #include "memory.h"
+#include "z80.dis.h"
 
 using namespace std;
 
@@ -109,9 +110,17 @@ string hexLines( int addr, uint8_t* data, int pos, int rows, int cols ) {
 
 void cmdLine( string cmd ) {
   
-  if ( cmd == "d" ) {
+  if ( cmd == "d" || cmd == "dump" ) {
     wrline( "memory ..." );
     wrline( hexLines( 0, memory, 0, 16, 16 ) );
+  } else if ( cmd == "l" || cmd == "list" ) {
+    wrline( "list ..." );
+    int addr = 0;
+    for ( int i = 0; i < 16; i++ ) {
+      Disassem res = dis( memory, addr );
+      wrline( res.ins );
+      addr += res.byt;
+    }
   } else {
     wr( "[" );
     wr( cmd );

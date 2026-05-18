@@ -884,6 +884,7 @@ std::string minor[][256] = {
     "undefined"
   },
   { // ed
+    // 00
     "undefined",
     "undefined",
     "undefined",
@@ -892,7 +893,7 @@ std::string minor[][256] = {
     "undefined",
     "undefined",
     "undefined",
-
+    // 08
     "undefined",
     "undefined",
     "undefined",
@@ -901,7 +902,7 @@ std::string minor[][256] = {
     "undefined",
     "undefined",
     "undefined",
-
+    // 10
     "undefined",
     "undefined",
     "undefined",
@@ -910,7 +911,7 @@ std::string minor[][256] = {
     "undefined",
     "undefined",
     "undefined",
-
+    // 18
     "undefined",
     "undefined",
     "undefined",
@@ -919,7 +920,7 @@ std::string minor[][256] = {
     "undefined",
     "undefined",
     "undefined",
-
+    // 20
     "undefined",
     "undefined",
     "undefined",
@@ -928,7 +929,7 @@ std::string minor[][256] = {
     "undefined",
     "undefined",
     "undefined",
-
+    // 28
     "undefined",
     "undefined",
     "undefined",
@@ -937,7 +938,7 @@ std::string minor[][256] = {
     "undefined",
     "undefined",
     "undefined",
-
+    // 30
     "undefined",
     "undefined",
     "undefined",
@@ -946,7 +947,7 @@ std::string minor[][256] = {
     "undefined",
     "undefined",
     "undefined",
-
+    // 38
     "undefined",
     "undefined",
     "undefined",
@@ -955,7 +956,7 @@ std::string minor[][256] = {
     "undefined",
     "undefined",
     "undefined",
-
+    // 40
     "in b,(c)",
     "out (c),b",
     "sbc hl,bc",
@@ -964,7 +965,7 @@ std::string minor[][256] = {
     "retn",
     "im 0",
     "ld i,a",
-
+    // 48
     "in c,(c)",
     "out (c),c",
     "adc hl,bc",
@@ -973,7 +974,7 @@ std::string minor[][256] = {
     "reti",
     "undefined",
     "ld r,a",
-
+    // 50
     "in d,(c)",
     "out (c),d",
     "sbc hl,de",
@@ -982,7 +983,7 @@ std::string minor[][256] = {
     "undefined",
     "im 1",
     "ld a,i",
-
+    // 58
     "in e,(c)",
     "out (c),e",
     "adc hl,de",
@@ -991,11 +992,11 @@ std::string minor[][256] = {
     "undefined",
     "im 2",
     "ld a,r",
-
+    // 60
     "in h,(c)",
     "out (c),h",
     "sbc hl,hl",
-    "undefined",
+    "ld (%A),hl    ; undocumented",
     "undefined",
     "undefined",
     "undefined",

@@ -9,6 +9,9 @@ CPPFLAGS = -Wall -Wextra -02 -g
 
 all: z80_test spectrum_test cpm_test cpmcon cpm_debug zxsdl
 
+emu: emu.cpp cli.h z80.dis.h z80.dis.data.h z80.c z80.h
+	$(CPP) $(CFLAGS) -o emu emu.cpp cli.h z80.dis.h z80.dis.data.h z80.c $(LDFLAGS)
+
 dis: dis.cpp
 	$(CPP) $(CFLAGS) -o dis dis.cpp z80.dis.h $(LDFLAGS)
 
