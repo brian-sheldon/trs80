@@ -24,6 +24,18 @@ function start() {
   keyboard.display();
   keyboard.enable();
 
+  $('#run').on( 'touchstart mousedown', function() {
+    klog( 'run ...' );
+    trsEmu.run('toggle');
+  });
+  $('#reset').on( 'touchstart mousedown', function() {
+    klog( 'reset ...' );
+    trsEmu.run('reset');
+  });
+  $('#logkey').on( 'touchstart mousedown', function() {
+    $('#log').toggle();
+  });
+
   log( 'xterm loading ...' );
 
   //let term = new Terminal();

@@ -40,7 +40,7 @@ let keyboard = new function() {
   ];
   */
   let rows = [
-    ['UP','Hold'],
+    ['Run','Reset','Log','UP','Hold'],
     ['BREAK',',','.','/',';',"'",'LEFT','DOWN','RIGHT','CLEAR'],
     ['1','2','3','4','5','6','7','8','9','0'],
     ['Q','W','E','R','T','Y','U','I','O','P'],
@@ -50,7 +50,7 @@ let keyboard = new function() {
   ];
   //
   let rows_shifted = [
-    ['UP','Hold'],
+    ['Run','Reset','Log','UP','Hold'],
     ['BREAK','<','>','?',':','"','LEFT','DOWN','RIGHT','CLEAR'],
     ['!','@','#','$','%','^','&','*','(',')'],
     ['Q','W','E','R','T','Y','U','I','O','P'],
@@ -80,6 +80,18 @@ let keyboard = new function() {
           label = key_shifted + '<br>' + key;
         }
         switch ( key ) {
+          case 'Run':
+            id = 'run';
+            clss = 'nokey';
+            break;
+          case 'Reset':
+            id = 'reset';
+            clss = 'nokey';
+            break;
+          case 'Log':
+            id = 'logkey';
+            clss = 'nokey';
+            break;
           case 'Hold':
             id = 'hold';
             clss = 'key';

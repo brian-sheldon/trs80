@@ -10,10 +10,13 @@
 }
 
 .row0 {
-  padding-left: 360px;
+  padding-left: 0px;
+}
+#up {
+  margin-left: 205px;
 }
 #hold {
-  margin-left: 48px;
+  margin-left: 50px;
 }
 .row1 {
   padding-left: 0px;
@@ -26,6 +29,19 @@
 }
 .row4 {
   padding-left: 20px;
+}
+
+.nokey {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid green;
+  background-color: black;
+  color: white;
+  text-align: center;
+  float: left;
+  width: 48px;
+  height: 50px;
 }
 
 .key {

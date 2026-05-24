@@ -14,19 +14,17 @@
     <script type="text/javascript" src="trs-js/trsjs.js"></script>
   <head>
   <body onload="start()"> 
-    <h1>TRS-80 Emulator - Experimental</h1>
+    <!-- h1>TRS-80 Emulator - Experimental</h1 -->
     <div id="scrn">
       <canvas width="512" height="408" style="background:black"></canvas>
-    </div><br>
+    </div>
+    <div id="keyboard"></div>
+    <div id="keyscan"></div>
+    <input type="button"id="btn" class="hidden" value="Run" onClick="trsEmu.run('toggle');">
+    <div id="klog"></div>
     <div id="graph">
       <canvas width="512" height="100" style="background:black"></canvas>
     </div><br>
-    <input type="button"id="btn" value="Run" onClick="trsEmu.run('toggle');">
-    <input type="button" value="Reset" onClick="trsEmu.run('reset');">
-    <input type="button" value="log" onClick="$('#log').toggle()">
-    <div id="keyboard"></div>
-    <div id="keyscan"></div>
-    <div id="klog"></div>
     <div id="console"></div>
     <div>
       <h3>A software generated Altair 8800 Panel</h3>
