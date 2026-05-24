@@ -4,11 +4,13 @@
     <meta http-equiv="Pragma" content="no-cache">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.css" />
     <link type="text/css" rel="stylesheet" href="trs-js/trsjs.css">
+    <link type="text/css" rel="stylesheet" href="trs-js/keyboard.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.js"></script>
     <script type="text/javascript" src="trs-js/trsemu-1.6.js"></script>
     <script type="text/javascript" src="trs-js/altair.js"></script>
     <script type="text/javascript" src="trs-js/cli.js"></script>
+    <script type="text/javascript" src="trs-js/keyboard.js"></script>
     <script type="text/javascript" src="trs-js/trsjs.js"></script>
   <head>
   <body onload="start()"> 
@@ -22,6 +24,9 @@
     <input type="button"id="btn" value="Run" onClick="trsEmu.run('toggle');">
     <input type="button" value="Reset" onClick="trsEmu.run('reset');">
     <input type="button" value="log" onClick="$('#log').toggle()">
+    <div id="keyboard"></div>
+    <div id="keyscan"></div>
+    <div id="klog"></div>
     <div id="console"></div>
     <div>
       <h3>A software generated Altair 8800 Panel</h3>

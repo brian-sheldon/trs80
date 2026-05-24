@@ -19,6 +19,10 @@ function start() {
   $('#console').on( 'click', function() {
     trsEmu.blur();
   });
+  
+  //let keyboard = new Keyboard();
+  keyboard.display();
+  keyboard.enable();
 
   log( 'xterm loading ...' );
 
